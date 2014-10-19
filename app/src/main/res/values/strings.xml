@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <resources>
+        <string name="app_name">PracticaListView</string>
+        <string name="tvTitulo">Title</string>
+        <string name="tvGenero">Genre</string>
+        <string name="tvPlataforma">Platform</string>
+        <string name="rbPs3">Ps3</string>
+        <string name="rbXbox">Xbox</string>
+        <string name="rbNintendo">Nintendo</string>
+        <string name="rbPc">Pc</string>
+        <string name="action_anadir">Add new game</string>
+        <string name="action_delete">Delete</string>
+        <string name="action_modify">Modify</string>
+        <string name="modify">Game Modify</string>
+        <string name="add">Game Added</string>
+    </resources>
+
+
