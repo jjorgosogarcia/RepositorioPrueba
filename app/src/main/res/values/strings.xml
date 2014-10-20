@@ -7,13 +7,20 @@
         <string name="tvPlataforma">Platform</string>
         <string name="rbPs3">Ps3</string>
         <string name="rbXbox">Xbox</string>
-        <string name="rbNintendo">Nintendo</string>
         <string name="rbPc">Pc</string>
         <string name="action_anadir">Add new game</string>
         <string name="action_delete">Delete</string>
         <string name="action_modify">Modify</string>
         <string name="modify">Game Modify</string>
         <string name="add">Game Added</string>
+        <string name="prestar">Let game</string>
+        <string name="prestado">Let game to: </string>
+        <string name="error">Please, insert the game title</string>
+        <string name="error2">You have not given this game</string>
+        <string name="borrarTodos">Delete all games?</string>
+        <string name="juegoDevuelto">Click OK if you have recovered the game</string>
+        <string name="eliminarUno">Delete the game?</string>
+        <string name="vacio">""</string>
     </resources>
 
 

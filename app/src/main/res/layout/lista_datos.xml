@@ -35,5 +35,13 @@
         android:layout_toRightOf="@+id/ivImagen"
         style="@style/text"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPrestado"
+        android:layout_above="@+id/tvPlataforma"
+        android:layout_centerHorizontal="true"
+        style="@style/text"/>
+
 
 </RelativeLayout>

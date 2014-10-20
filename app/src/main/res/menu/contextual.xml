@@ -11,4 +11,14 @@
         android:orderInCategory="100"
         android:showAsAction="never" />
 
+    <item android:id="@+id/action_prestado"
+        android:title="Prestar"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/action_devolver"
+        android:title="Devolver"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
 </menu>

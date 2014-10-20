@@ -5,18 +5,20 @@ package com.example.usuario.practicalistviewjuegos;
  */
 public class Juego implements Comparable<Juego> {
 
-    private String titulo, genero, plataforma;
+    private String titulo, genero, plataforma, prestado;
 
     public Juego() {
         titulo="";
         genero="";
         plataforma="";
+        prestado="";
     }
 
-    public Juego(String titulo, String genero, String plataforma) {
+    public Juego(String titulo, String genero, String plataforma, String prestado) {
         this.titulo = titulo;
         this.genero = genero;
         this.plataforma = plataforma;
+        this.prestado = prestado;
     }
 
     public String getGenero() {
@@ -42,6 +44,15 @@ public class Juego implements Comparable<Juego> {
     public void setPlataforma(String plataforma) {
         this.plataforma = plataforma;
     }
+
+    public String getPrestado() {
+        return prestado;
+    }
+
+    public void setPrestado(String prestado) {
+        this.prestado = prestado;
+    }
+
 
 
     public int compareTo(Juego juego) {

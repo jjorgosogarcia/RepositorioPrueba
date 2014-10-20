@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -26,6 +25,7 @@ public class Principal extends Activity {
     private ListView lv;
     private AdaptadorArray ad;
     private String s="";
+    private TextView tvPre;
 
     /***************************************************************/
     /*                      METODOS ON                             */
@@ -59,11 +59,16 @@ public class Principal extends Activity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
         if(id == R.id.action_eliminar){
-            juegos.remove(index);
-            ad.notifyDataSetChanged();
+            eliminar(index);
         }
         else if(id ==R.id.action_editar){
             editar(index);
+        }
+        else if(id ==R.id.action_prestado){
+            prestar(index);
+        }
+        else if(id ==R.id.action_devolver){
+            devolver(index);
         }
         return super.onContextItemSelected(item);
     }
@@ -72,7 +77,10 @@ public class Principal extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_anadir) {
-            return añadir();
+            aniadir();
+        }
+        else if (id == R.id.action_borrarTodo) {
+            borrarTodo();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -84,15 +92,15 @@ public class Principal extends Activity {
         switch (view.getId()) {
             case R.id.rbPc:
                 if (checked)
-                    s="Pc";
+                    s=getString(R.string.rbPc);
                 break;
             case R.id.rbPs3:
                 if (checked)
-                    s="Ps3";
+                    s=getString(R.string.rbPs3);
                 break;
             case R.id.rbXbox:
                 if (checked)
-                    s="Xbox";
+                    s=getString(R.string.rbXbox);
                 break;
         }
     }
@@ -101,7 +109,7 @@ public class Principal extends Activity {
     /*                      METODOS CLICK                          */
     /***************************************************************/
 
-    private boolean añadir(){
+    private boolean aniadir(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(R.string.action_anadir);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -113,17 +121,53 @@ public class Principal extends Activity {
                         EditText et1, et2;
                         et1 = (EditText) vista.findViewById(R.id.etTitulo);
                         et2 = (EditText) vista.findViewById(R.id.etGenero);
-                            juegos.add(new Juego(et1.getText().toString(),et2.getText().toString(),s));
-                        tostada(getString(R.string.add));
+                        if(et1.getText().length()==0) {
+                            tostada(getString(R.string.error));
+                        }else {
+                            juegos.add(new Juego(et1.getText().toString(), et2.getText().toString(), s, ""));
+                            tostada(getString(R.string.add));
                             Collections.sort(juegos);
                             ad.notifyDataSetChanged();
-                        //s=""; para que si se nos olvida poner una plataforma no nos coja la anterior
-                        s="";
+                            //s=""; para que si se nos olvida poner una plataforma no nos coja la anterior
+                            s = "";
+                        }
                     }
                 });
         alert.setNegativeButton(android.R.string.no, null);
         alert.show();
         return true;
+    }
+
+    public void borrarTodo(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.borrarTodos);
+        alert.setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        juegos.clear();
+                        ad.notifyDataSetChanged();
+                    }
+                });
+        alert.setNegativeButton(android.R.string.no, null);
+        alert.show();
+    }
+
+    public void devolver(final int index){
+        if (juegos.get(index).getPrestado()==""){
+            tostada(getString(R.string.error2));
+        }else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle(R.string.juegoDevuelto);
+            alert.setPositiveButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            juegos.get(index).setPrestado("");
+                            ad.notifyDataSetChanged();
+                        }
+                    });
+            alert.setNegativeButton(android.R.string.no, null);
+            alert.show();
+        }
     }
 
     private boolean editar(final int index){
@@ -132,7 +176,7 @@ public class Principal extends Activity {
         LayoutInflater inflater = LayoutInflater.from(this);
         final View vista = inflater.inflate(R.layout.alta, null);
         alert.setView(vista);
-        final EditText et1, et2, et3;
+        final EditText et1, et2;
         et1 = (EditText) vista.findViewById(R.id.etTitulo);
         et2 = (EditText) vista.findViewById(R.id.etGenero);
         //Cargamos en los edittext los datos que teniamos, para modificarlos
@@ -141,13 +185,17 @@ public class Principal extends Activity {
         alert.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        //Modificamos los datos
-                        juegos.get(index).setTitulo(et1.getText().toString());
-                        juegos.get(index).setGenero(et2.getText().toString());
-                        juegos.get(index).setPlataforma(s);
-                        ad.notifyDataSetChanged();
-                        tostada(getString(R.string.modify));
-                        Collections.sort(juegos);
+                        if(et1.getText().length()==0) {
+                            tostada(getString(R.string.error));
+                        }else {
+                            //Modificamos los datos
+                            juegos.get(index).setTitulo(et1.getText().toString());
+                            juegos.get(index).setGenero(et2.getText().toString());
+                            juegos.get(index).setPlataforma(s);
+                            ad.notifyDataSetChanged();
+                            tostada(getString(R.string.modify));
+                            Collections.sort(juegos);
+                        }
                     }
                 });
         alert.setNegativeButton(android.R.string.no, null);
@@ -156,23 +204,55 @@ public class Principal extends Activity {
 
     }
 
+    public void eliminar(final int index){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.eliminarUno);
+        alert.setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        juegos.remove(index);
+                        ad.notifyDataSetChanged();
+                    }
+                });
+        alert.setNegativeButton(android.R.string.no, null);
+        alert.show();
+    }
+
+    public void prestar(final int index){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.prestar);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        final View vista = inflater.inflate(R.layout.prestar, null);
+        alert.setView(vista);
+        final EditText etPres;
+        etPres = (EditText) vista.findViewById(R.id.etPrestar);
+        alert.setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        tvPre = (TextView)findViewById(R.id.tvPrestado);
+                        juegos.get(index).setPrestado(etPres.getText().toString());
+                        juegos.get(index).setPrestado(getString(R.string.prestado) + " " + juegos.get(index).getPrestado());
+                        ad.notifyDataSetChanged();
+                    }
+                });
+        alert.setNegativeButton(android.R.string.no, null);
+        alert.show();
+    }
+
+
     /***************************************************************/
     /*                        AUXILIARES                           */
     /***************************************************************/
 
     //Sacamos una lista de juegos predefinida y la ordenamos
     public void cargarJuegos(){
-        juegos.add(new Juego("Final Fantasy","Rpg","Ps3"));
-        juegos.add(new Juego("Resident Evil","Terror","Xbox"));
-        juegos.add(new Juego("Counter Strike","Shooter","Pc"));
-        juegos.add(new Juego("Halo","Shooter","Xbox"));
-        juegos.add(new Juego("Kingdom hearts","Action-Rpg","Ps3"));
-        juegos.add(new Juego("Metal Gear Rising","Rpg","Pc"));
+        juegos.add(new Juego("Final Fantasy","Rpg","Ps3",""));
+        juegos.add(new Juego("Resident Evil","Terror","Xbox",""));
+        juegos.add(new Juego("Counter Strike","Shooter","Pc",""));
+        juegos.add(new Juego("Halo","Shooter","Xbox",""));
+        juegos.add(new Juego("Kingdom hearts","Action-Rpg","Ps3",""));
+        juegos.add(new Juego("Metal Gear Rising","Rpg","Pc",""));
         Collections.sort(juegos);
-    }
-    //Sacamos mensajes de información
-    private void tostada(String s){
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
     //Iniciamos las variables
     private void initComponents(){
@@ -181,4 +261,10 @@ public class Principal extends Activity {
         lv.setAdapter(ad);
         registerForContextMenu(lv);
     }
+
+    //Sacamos mensajes de información
+    private void tostada(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+
 }

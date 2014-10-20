@@ -6,5 +6,9 @@
         android:title="@string/action_anadir"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/action_borrarTodo"
+        android:title="Borrar todo"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
 
 </menu>
