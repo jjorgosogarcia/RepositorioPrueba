@@ -12,12 +12,12 @@
         android:showAsAction="never" />
 
     <item android:id="@+id/action_prestado"
-        android:title="Prestar"
+        android:title="@string/action_letGame"
         android:orderInCategory="100"
         android:showAsAction="never" />
 
     <item android:id="@+id/action_devolver"
-        android:title="Devolver"
+        android:title="@string/action_recoverGame"
         android:orderInCategory="100"
         android:showAsAction="never" />
 

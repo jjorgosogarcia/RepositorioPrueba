@@ -39,9 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvPrestado"
-        android:layout_above="@+id/tvPlataforma"
-        android:layout_centerHorizontal="true"
-        style="@style/text"/>
+        style="@style/text"
+        android:layout_below="@+id/tvPlataforma"
+        android:layout_alignLeft="@+id/tvPlataforma"
+        android:layout_alignStart="@+id/tvPlataforma" />
 
 
 </RelativeLayout>

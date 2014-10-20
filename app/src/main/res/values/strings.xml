@@ -11,6 +11,10 @@
         <string name="action_anadir">Add new game</string>
         <string name="action_delete">Delete</string>
         <string name="action_modify">Modify</string>
+        <string name="action_letGame">Let game</string>
+        <string name="action_recoverGame">Recover game</string>
+        <string name="action_deleteAll">Delete all</string>
+        <string name="letgameto">Let game to</string>
         <string name="modify">Game Modify</string>
         <string name="add">Game Added</string>
         <string name="prestar">Let game</string>
@@ -20,7 +24,6 @@
         <string name="borrarTodos">Delete all games?</string>
         <string name="juegoDevuelto">Click OK if you have recovered the game</string>
         <string name="eliminarUno">Delete the game?</string>
-        <string name="vacio">""</string>
     </resources>
 
 
