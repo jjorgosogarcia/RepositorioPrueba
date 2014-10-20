@@ -219,24 +219,28 @@ public class Principal extends Activity {
     }
 
     public void prestar(final int index){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.prestar);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        final View vista = inflater.inflate(R.layout.prestar, null);
-        alert.setView(vista);
-        final EditText etPres;
-        etPres = (EditText) vista.findViewById(R.id.etPrestar);
-        alert.setPositiveButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        tvPre = (TextView)findViewById(R.id.tvPrestado);
-                        juegos.get(index).setPrestado(etPres.getText().toString());
-                        juegos.get(index).setPrestado(getString(R.string.prestado) + " " + juegos.get(index).getPrestado());
-                        ad.notifyDataSetChanged();
-                    }
-                });
-        alert.setNegativeButton(android.R.string.no, null);
-        alert.show();
+        if(juegos.get(index).getPrestado()!="") {
+            tostada(getString(R.string.yaPrestado));
+        }else{
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle(R.string.prestar);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            final View vista = inflater.inflate(R.layout.prestar, null);
+            alert.setView(vista);
+            final EditText etPres;
+            etPres = (EditText) vista.findViewById(R.id.etPrestar);
+            alert.setPositiveButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            tvPre = (TextView)findViewById(R.id.tvPrestado);
+                            juegos.get(index).setPrestado(etPres.getText().toString());
+                            juegos.get(index).setPrestado(getString(R.string.prestado) + " " + juegos.get(index).getPrestado());
+                            ad.notifyDataSetChanged();
+                        }
+                    });
+            alert.setNegativeButton(android.R.string.no, null);
+            alert.show();
+        }
     }
 
 

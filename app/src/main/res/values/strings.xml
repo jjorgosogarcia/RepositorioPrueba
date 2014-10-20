@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     <resources>
-        <string name="app_name">PracticaListView</string>
+        <string name="app_name">Videogames</string>
         <string name="tvTitulo">Title</string>
         <string name="tvGenero">Genre</string>
         <string name="tvPlataforma">Platform</string>
@@ -24,6 +24,7 @@
         <string name="borrarTodos">Delete all games?</string>
         <string name="juegoDevuelto">Click OK if you have recovered the game</string>
         <string name="eliminarUno">Delete the game?</string>
+        <string name="yaPrestado">This game have let at this time</string>
     </resources>
 
 
