@@ -10,12 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-
-/**
- * Created by USUARIO on 11/10/2014.
- */
-
-
     public class AdaptadorArray extends ArrayAdapter<Juego> {
 
         private Context contexto;
@@ -31,14 +25,16 @@ import java.util.ArrayList;
             this.i = (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        public class ViewHolder {
+
+
+    public class ViewHolder {
             public TextView tv1, tv2, tv3, tvPre;
             public ImageView iv;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Log.v("LOG", "" + lista.size());
+            Log.v("LOG", ""+ lista.size());
             ViewHolder vh = null;
             if (convertView == null) {
                 convertView = i.inflate(recurso, null);
@@ -52,17 +48,17 @@ import java.util.ArrayList;
             } else {
                 vh = (ViewHolder) convertView.getTag();
             }
-            ImageView iv = (ImageView) convertView.findViewById(R.id.ivImagen);
+
             Juego game = lista.get(position);
 
             if(game.getPlataforma().equals("Ps3")){
-                iv.setImageResource(R.drawable.ic_ps3);
+                vh.iv.setImageResource(R.drawable.ic_ps3);
             }else if(game.getPlataforma().equals("Pc")){
-                iv.setImageResource(R.drawable.ic_pc);
+                vh.iv.setImageResource(R.drawable.ic_pc);
             }else if(game.getPlataforma().equals("Xbox")){
-                iv.setImageResource(R.drawable.ic_xbox);
+                vh.iv.setImageResource(R.drawable.ic_xbox);
             }else{
-                iv.setImageResource(R.drawable.ic_launcher);
+                vh.iv.setImageResource(R.drawable.ic_launcher);
             }
             vh.tv1.setText(lista.get(position).getTitulo());
             vh.tv2.setText(lista.get(position).getGenero());

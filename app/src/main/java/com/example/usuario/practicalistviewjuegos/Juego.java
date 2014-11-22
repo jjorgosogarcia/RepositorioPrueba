@@ -1,9 +1,8 @@
 package com.example.usuario.practicalistviewjuegos;
 
-/**
- * Created by USUARIO on 11/10/2014.
- */
-public class Juego implements Comparable<Juego> {
+import java.io.Serializable;
+
+public class Juego implements Comparable<Juego>, Serializable {
 
     private String titulo, genero, plataforma, prestado;
 
@@ -54,7 +53,25 @@ public class Juego implements Comparable<Juego> {
     }
 
 
+    //No se repiten por titulo y genero
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Juego juego = (Juego) o;
+        if (!plataforma.equals(juego.plataforma)) return false;
+        if (!titulo.equals(juego.titulo)) return false;
+        return true;
+    }
 
+    @Override
+    public int hashCode() {
+        int result = titulo.hashCode();
+        result = 31 * result + plataforma.hashCode();
+        return result;
+    }
+
+    //Comparador por titulo
     public int compareTo(Juego juego) {
         String a = getTitulo().toLowerCase();
         String b = juego.getTitulo().toLowerCase();

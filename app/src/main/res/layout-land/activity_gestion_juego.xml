@@ -26,8 +26,9 @@
 
     <RadioGroup
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/etPlataforma">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPlataforma"
+        android:id="@+id/radioGroup">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -52,6 +53,28 @@
             android:id="@+id/rbXbox"
             android:checked="false"
             android:onClick="onRadioButtonClicked" />
+
     </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btAceptar"
+        android:id="@+id/btAceptar"
+        android:layout_toEndOf="@+id/etPlataforma"
+        android:onClick="aceptar"
+        android:layout_below="@+id/radioGroup"
+        android:layout_toRightOf="@+id/etPlataforma" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btCancelar"
+        android:id="@+id/btCancelar"
+        android:layout_toEndOf="@+id/btAceptar"
+        android:layout_alignTop="@+id/btAceptar"
+        android:layout_toRightOf="@+id/btAceptar"
+        android:onClick="cancelar" />
+
 
 </RelativeLayout>

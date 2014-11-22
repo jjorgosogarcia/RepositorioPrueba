@@ -24,4 +24,8 @@
     <string name="juegoDevuelto">Pulsa aceptar si has recuperado el juego</string>
     <string name="eliminarUno">Quieres eliminar el juego?</string>
     <string name="yaPrestado">Este juego lo tienes prestado en estos momentos</string>
+    <string name="Yatiene" >Ya tiene este juego</string>
+    <string name="btAceptar">Aceptar</string>
+    <string name="btCancelar">Cancelar</string>
+    <string name="ordenar">Ordenar plataforma</string>
 </resources>
