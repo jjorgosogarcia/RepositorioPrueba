@@ -340,7 +340,7 @@ public class Principal extends Activity {
         catch (IOException e){}
     }
 
-    //Método que compara los juegos y los oredena por plataforma
+    //Método que compara los juegos y los ordena por plataforma
     private class ordenarPlataforma implements Comparator<Juego> {
         public int compare(Juego game1, Juego game2) {
             int compara = game1.getPlataforma().compareTo(game2.getPlataforma());
