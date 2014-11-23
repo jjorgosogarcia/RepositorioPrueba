@@ -34,8 +34,8 @@ public class gestionJuego extends Activity {
             Bundle b = getIntent().getExtras();
             index=0;
             if(b !=null ){
-                index = b.getInt("index");
-                Juego j = (Juego)b.getSerializable("juegos");
+                index = b.getInt(getString(R.string.index));
+                Juego j = (Juego)b.getSerializable(getString(R.string.juegos));
                 etTitulo.setText(j.getTitulo());
                 etGenero.setText(j.getGenero());
                 etPlataforma.setText(j.getPlataforma());
@@ -97,10 +97,10 @@ public class gestionJuego extends Activity {
         b = etGenero.getText().toString();
         Intent i = new Intent();
         Bundle bundle = new Bundle();
-        bundle.putString("titulo",a);
-        bundle.putString("genero",b);
-        bundle.putString("plataforma",s);
-        bundle.putInt("index",index);
+        bundle.putString(getString(R.string.titulo),a);
+        bundle.putString(getString(R.string.genero),b);
+        bundle.putString(getString(R.string.plataforma),s);
+        bundle.putInt(getString(R.string.index),index);
         i.putExtras(bundle);
         //s=""; para que si se nos olvida poner una plataforma no nos coja la anterior
         s = "";

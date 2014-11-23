@@ -50,10 +50,10 @@ public class Principal extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==Activity.RESULT_OK){
-            String titulo = data.getStringExtra("titulo");
-            String genero = data.getStringExtra("genero");
-            String plataforma = data.getStringExtra("plataforma");
-            int index = data.getIntExtra("index",-1);
+            String titulo = data.getStringExtra(getString(R.string.titulo));
+            String genero = data.getStringExtra(getString(R.string.genero));
+            String plataforma = data.getStringExtra(getString(R.string.plataforma));
+            int index = data.getIntExtra(getString(R.string.index),-1);
             Juego j = new Juego(titulo,genero,plataforma,"");
             switch (requestCode){
                 case CREAR:
@@ -144,7 +144,7 @@ public class Principal extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle savingInstanceState) {
         super.onSaveInstanceState(savingInstanceState);
-        savingInstanceState.putSerializable("objeto", juegos);
+        savingInstanceState.putSerializable(getString(R.string.objeto), juegos);
     }
 
     /***************************************************************/
@@ -190,8 +190,8 @@ public class Principal extends Activity {
     public void editar(final int index){
         Intent i = new Intent(this,gestionJuego.class);
         Bundle b = new Bundle();
-        b.putSerializable("juegos", juegos.get(index));
-        b.putInt("index", index);
+        b.putSerializable(getString(R.string.juegos), juegos.get(index));
+        b.putInt(getString(R.string.index), index);
         i.putExtras(b);
         startActivityForResult(i, MODIFICAR);
     }
@@ -247,14 +247,14 @@ public class Principal extends Activity {
         //Preparamos el archivo
         FileOutputStream fosxml = null;
         try {
-            fosxml = new FileOutputStream(new File(getExternalFilesDir(null), "juegos.xml"));
+            fosxml = new FileOutputStream(new File(getExternalFilesDir(null), getString(R.string.archivo)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         //Preparamos el documento XML
         XmlSerializer docxml = Xml.newSerializer();
         try {
-            docxml.setOutput(fosxml, "UTF-8");
+            docxml.setOutput(fosxml, getString(R.string.codificacion));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -263,27 +263,27 @@ public class Principal extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        docxml.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
+        docxml.setFeature(getString(R.string.feature), true);
 
         //Creo las etiquetas
         try {
-            docxml.startTag(null, "Juegos"); //Etiqueta Raiz
+            docxml.startTag(null, getString(R.string.raizJuegos)); //Etiqueta Raiz
 
             for (int i = 0; i < juegos.size(); i++) {
-                docxml.startTag(null, "Juego");
-                docxml.startTag(null, "Titulo");
+                docxml.startTag(null, getString(R.string.tvJuego));
+                docxml.startTag(null, getString(R.string.Titulo));
                 docxml.text(juegos.get(i).getTitulo());
-                docxml.endTag(null, "Titulo");
-                docxml.startTag(null, "Genero");
+                docxml.endTag(null, getString(R.string.Titulo));
+                docxml.startTag(null, getString(R.string.Genero));
                 docxml.text(juegos.get(i).getGenero());
-                docxml.endTag(null, "Genero");
-                docxml.startTag(null, "Plataforma");
+                docxml.endTag(null,  getString(R.string.Genero));
+                docxml.startTag(null,  getString(R.string.Plataforma));
                 docxml.text(juegos.get(i).getPlataforma());
-                docxml.endTag(null, "Plataforma");
-                docxml.startTag(null, "Prestado");
+                docxml.endTag(null,  getString(R.string.Plataforma));
+                docxml.startTag(null, getString(R.string.tvPrestado));
                 docxml.text(juegos.get(i).getPrestado());
-                docxml.endTag(null, "Prestado");
-                docxml.endTag(null, "Juego");
+                docxml.endTag(null, getString(R.string.tvPrestado));
+                docxml.endTag(null, getString(R.string.tvJuego));
             }
             // Cierro el documento
             docxml.endDocument();
@@ -302,38 +302,39 @@ public class Principal extends Activity {
         lv.setAdapter(ad);
         registerForContextMenu(lv);
         leer();
+        Collections.sort(juegos);
     }
 
     private void leer()  {
-try {
-    XmlPullParser lectorxml = Xml.newPullParser();
-    lectorxml.setInput(new FileInputStream(new File(getExternalFilesDir(null), "juegos.xml")), "utf-8");
-    int evento = lectorxml.getEventType();
-    Juego j = new Juego();
+        try {
+            XmlPullParser lectorxml = Xml.newPullParser();
+            lectorxml.setInput(new FileInputStream(new File(getExternalFilesDir(null),  getString(R.string.archivo))),  getString(R.string.codificacion));
+            int evento = lectorxml.getEventType();
+            Juego j = new Juego();
 
-    while (evento != XmlPullParser.END_DOCUMENT) {
-        if (evento == XmlPullParser.START_TAG) {
-            String etiqueta = lectorxml.getName();
-            if (etiqueta.compareTo("Titulo") == 0) {
-                j.setTitulo(lectorxml.nextText());
-            } else if (etiqueta.compareTo("Genero") == 0) {
-                j.setGenero(lectorxml.nextText());
-            } else if (etiqueta.compareTo("Prestado") == 0) {
-                j.setPrestado(lectorxml.nextText());
-            } else if (etiqueta.compareTo("Plataforma") == 0) {
-                j.setPlataforma(lectorxml.nextText());
+            while (evento != XmlPullParser.END_DOCUMENT) {
+                if (evento == XmlPullParser.START_TAG) {
+                    String etiqueta = lectorxml.getName();
+                    if (etiqueta.compareTo( getString(R.string.Titulo)) == 0) {
+                        j.setTitulo(lectorxml.nextText());
+                    } else if (etiqueta.compareTo( getString(R.string.Genero)) == 0) {
+                        j.setGenero(lectorxml.nextText());
+                    } else if (etiqueta.compareTo( getString(R.string.tvPrestado)) == 0) {
+                        j.setPrestado(lectorxml.nextText());
+                    } else if (etiqueta.compareTo( getString(R.string.Plataforma)) == 0) {
+                        j.setPlataforma(lectorxml.nextText());
+                    }
+                }
+                if (evento == XmlPullParser.END_TAG) {
+                    String etiqueta = lectorxml.getName();
+                    if (etiqueta.compareTo( getString(R.string.tvJuego)) == 0) {
+                        juegos.add(j);
+                        j = new Juego();
+                    }
+                }
+                evento = lectorxml.next();
             }
-        }
-        if (evento == XmlPullParser.END_TAG) {
-            String etiqueta = lectorxml.getName();
-            if (etiqueta.compareTo("Juego") == 0) {
-                juegos.add(j);
-                j = new Juego();
-            }
-        }
-        evento = lectorxml.next();
-    }
-    }catch (XmlPullParserException e){}
+        }catch (XmlPullParserException e){}
         catch (IOException e){}
     }
 
