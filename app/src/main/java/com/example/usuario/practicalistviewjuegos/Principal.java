@@ -243,6 +243,7 @@ public class Principal extends Activity {
     /*                                                             */
     /***************************************************************/
 
+    //Guarda nuestra lista de juegos en un archivo xml
     private void guardar() {
         //Preparamos el archivo
         FileOutputStream fosxml = null;
@@ -305,6 +306,7 @@ public class Principal extends Activity {
         Collections.sort(juegos);
     }
 
+    //Lee los juegos de un archivo xml
     private void leer()  {
         try {
             XmlPullParser lectorxml = Xml.newPullParser();
@@ -338,6 +340,7 @@ public class Principal extends Activity {
         catch (IOException e){}
     }
 
+    //Método que compara juegos y los oredena por plataforma
     private class ordenarPlataforma implements Comparator<Juego> {
         public int compare(Juego game1, Juego game2) {
             int compara = game1.getPlataforma().compareTo(game2.getPlataforma());
@@ -352,7 +355,5 @@ public class Principal extends Activity {
     private void tostada(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
-
-
 
 }
